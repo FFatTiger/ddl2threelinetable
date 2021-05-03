@@ -6,17 +6,12 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import anno.TableField;
-import entity.Result;
+import entity.Database;
 import entity.TableDetail;
 import org.apache.poi.xwpf.usermodel.*;
-import org.apache.xmlbeans.XmlCursor;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBorderImpl;
-import util.XWPFHelper;
-import util.XWPFHelperTable;
 
 
 /**
@@ -33,17 +28,17 @@ public class ExportWord {
      * 创建好文档的基本 标题，表格  段落等部分
      * @return
      */
-    public XWPFDocument createXWPFDocument(List<Result> results) {
+    public XWPFDocument createXWPFDocument(List<Database> databases) {
         XWPFDocument doc = new XWPFDocument();
 
-        for (Result result : results) {
-            int rows = result.getTableDetails().size();
+        for (Database database : databases) {
+            int rows = database.getTableDetails().size();
             int cols = TableDetail.class.getDeclaredFields().length;
             createTableParagraph(doc, rows + 1, cols);
             XWPFParagraph titleParagraph = doc.createParagraph();    //新建一个标题段落对象（就是一段文字）
             titleParagraph.setAlignment(ParagraphAlignment.CENTER);//样式居中
             XWPFRun titleFun = titleParagraph.createRun();    //创建文本对象
-            titleFun.setText(result.getTableName());
+            titleFun.setText(database.getTableName() + " " + database.getTableComment());
             titleFun.addBreak();    //换行
             titleFun.addBreak();    //换行
         }
@@ -120,12 +115,12 @@ public class ExportWord {
      * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    public void exportCheckWord(List<Result> results, XWPFDocument document, String savePath) throws IOException, IllegalAccessException {
+    public void exportCheckWord(List<Database> databases, XWPFDocument document, String savePath) throws IOException, IllegalAccessException {
 
         Iterator<XWPFTable> tableIterator = document.getTables().iterator();
-        for (Result result : results) {
+        for (Database database : databases) {
             XWPFTable table = tableIterator.next();
-            fillTableData(table, result.getTableDetails());
+            fillTableData(table, database.getTableDetails());
         }
 
         xwpfHelper.saveDocument(document, savePath);

@@ -7,10 +7,11 @@ import java.util.List;
  * @author wzy
  * @date 2021/5/2
  */
-public class Result {
+public class Database {
 
     private String tableSchema;
     private String tableName;
+    private String tableComment;
 
     private List<TableDetail> tableDetails;
 
@@ -41,12 +42,25 @@ public class Result {
         this.tableDetails = tableDetails;
     }
 
+    public String getTableComment() {
+        return tableComment;
+    }
+
+    public void setTableComment(String tableComment) {
+        if ("".equals(tableComment) || tableComment == null) {
+            tableComment = "无";
+        } else {
+            this.tableComment = tableComment;
+        }
+    }
+
     @Override
     public String toString() {
-        return "Result{" +
+        return "Database{" +
                 "tableSchema='" + tableSchema + '\'' +
                 ", tableName='" + tableName + '\'' +
+                ", tableComment='" + tableComment + '\'' +
                 ", tableDetails=" + tableDetails +
-                '}' + '\n';
+                '}';
     }
 }

@@ -73,7 +73,6 @@ public class TableDetail {
     public void setColumnDefault(String columnDefault) {
         if ("".equals(columnDefault) || columnDefault == null) {
             this.columnDefault = "无";
-
         } else {
             this.columnDefault = columnDefault;
         }
