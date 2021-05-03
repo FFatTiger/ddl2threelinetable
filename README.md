@@ -1,0 +1,4 @@
+# ddl2threelinetable
+数据库信息转三线表word
+
+修改main函数databasename运行即可
