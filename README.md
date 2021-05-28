@@ -4,4 +4,4 @@
 修改main函数databasename与dbinfo的数据库连接信息运行即可
 
 导出结果示例
-![Uploading image.png…]()
+![Uploading image.png…](https://github.com/FFatTiger/ddl2threelinetable/blob/main/shili.png)
